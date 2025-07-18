@@ -1,0 +1,24 @@
+{
+  "name": "sm-api-fastapi",
+  "version": "1.0.0",
+  "description": "Este projeto interage com um contrato inteligente na rede Polygon usando a biblioteca Web3.py. O código permite chamar funções de leitura e escrever dados no contrato, como obter informações sobre um documento e adicionar um novo documento.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pedroffda/sm-api-fastapi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Pedroffda/sm-api-fastapi/issues"
+  },
+  "homepage": "https://github.com/Pedroffda/sm-api-fastapi#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.2.0"
+  }
+}

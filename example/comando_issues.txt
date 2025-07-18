@@ -1,0 +1,1 @@
+slither contract.sol --filter-paths "node_modules/" --print human-summary
