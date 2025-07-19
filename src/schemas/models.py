@@ -11,3 +11,14 @@ class DelegateAccessRequest(BaseModel):
             return Web3.to_checksum_address(v)
         except ValueError:
             raise ValueError("Endereço Ethereum inválido")
+
+class MintNFTRequest(BaseModel):
+    recipient: str
+    token_uri: str
+    
+    @field_validator('recipient')
+    def validate_recipient_address(cls, v):
+        try:
+            return Web3.to_checksum_address(v)
+        except ValueError:
+            raise ValueError("Endereço Ethereum inválido para o destinatário")

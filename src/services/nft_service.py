@@ -6,6 +6,18 @@ class NFTService:
     def __init__(self):
         self.contract = IoTAccessNFT()
 
+    def mint_nft(self, recipient: str, token_uri: str):
+        """Cria um novo NFT"""
+        try:
+            tx_hash = self.contract.mint_nft(
+                recipient,
+                token_uri,
+                settings.PRIVATE_KEY
+            )
+            return tx_hash
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Erro ao fazer mint do NFT: {str(e)}")
+
     def get_access_details(self, token_id: int):
         delegatee, expires_at = self.contract.get_access_details(token_id)
         if delegatee is None:

@@ -5,9 +5,9 @@ class Settings:
     CONTRACT_ADDRESS = config("CONTRACT_ADDRESS")
     MY_ADDRESS = config("MY_ADDRESS")
     PRIVATE_KEY = config("PRIVATE_KEY")  # Armazenar com segurança!
-    # NETWORK_URL = f"https://polygon-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}"
+    NETWORK_URL = f"https://polygon-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}"
     # NETWORK_URL = f"https://arb-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}"
-    NETWORK_URL = f"https://opt-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}"
+    # NETWORK_URL = f"https://opt-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}"
     
 print("Settings loaded successfully.")
 print("Contract Address:", Settings.CONTRACT_ADDRESS)

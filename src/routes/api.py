@@ -2,7 +2,7 @@ import time
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from src.services.nft_service import NFTService
-from src.schemas.models import DelegateAccessRequest
+from src.schemas.models import DelegateAccessRequest, MintNFTRequest
 
 async def latency_middleware(request: Request, call_next):
     start_time = time.time()
@@ -38,6 +38,14 @@ async def generic_exception_handler(request: Request, exc: Exception):
         status_code=500,
         content={"detail": f"Erro interno: {str(exc)}"},
     )
+
+@app.post("/mint-nft")
+async def mint_nft(request: MintNFTRequest):
+    tx_hash = nft_service.mint_nft(
+        request.recipient,
+        request.token_uri
+    )
+    return {"tx_hash": tx_hash}
 
 @app.get("/access/{token_id}/{user}")
 async def check_access(token_id: int, user: str):

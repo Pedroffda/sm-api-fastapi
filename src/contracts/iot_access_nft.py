@@ -17,6 +17,25 @@ class IoTAccessNFT:
             abi=abi
         )
 
+    def mint_nft(self, recipient: str, token_uri: str, private_key: str):
+        """Cria um novo NFT para o destinatário especificado"""
+        start = time.time()
+        # Converte para checksum address
+        checksum_address = self.w3.to_checksum_address(recipient)
+        nonce = self.w3.eth.get_transaction_count(settings.MY_ADDRESS)
+        tx = self.contract.functions.mintNFT(
+            checksum_address,
+            token_uri
+        ).build_transaction({
+            "from": settings.MY_ADDRESS,
+            "nonce": nonce
+        })
+        signed_tx = self.w3.eth.account.sign_transaction(tx, private_key)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        latency = time.time() - start
+        print(f"Latência da transação de mint: {latency:.2f} segundos")
+        return tx_hash.hex()
+
     def get_access_details(self, token_id: int) -> tuple:
         """Retorna (delegatee, expiresAt) para um token"""
         try:
@@ -45,9 +64,7 @@ class IoTAccessNFT:
             duration
         ).build_transaction({
             "from": settings.MY_ADDRESS,
-            "nonce": nonce,
-            # "gas": 100000,
-            "gasPrice": self.w3.to_wei("30", "gwei")
+            "nonce": nonce
         })
         signed_tx = self.w3.eth.account.sign_transaction(tx, private_key)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
@@ -60,9 +77,7 @@ class IoTAccessNFT:
         nonce = self.w3.eth.get_transaction_count(settings.MY_ADDRESS)
         tx = self.contract.functions.revokeAccess(token_id).build_transaction({
             "from": settings.MY_ADDRESS,
-            "nonce": nonce,
-            "gas": 200000,
-            "gasPrice": self.w3.to_wei("30", "gwei")
+            "nonce": nonce
         })
         signed_tx = self.w3.eth.account.sign_transaction(tx, private_key)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
